@@ -1,0 +1,20 @@
+<div class="container">
+	<div class="list-group">
+		<div class="list-group-item" ng-repeat="artist in artists" ng-click="go('/artists/' + artist.id)">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 list-col">
+					<div ng-show="!artist.spotifyData.images[2].url" class="list-icon">
+					<span class="glyphicon glyphicon-user"></span>
+					</div>
+					<img src="{{artist.spotifyData.images[2].url}}" alt="{{artist.name}}" class="list-image" ng-show="artist.spotifyData.images[2].url">
+				</div>
+				<div class="col-lg-8 col-md-8 list-col">
+					<h4>{{artist.name}}</h4>
+					<p ng-bind="artist.spotifyData.genres.join()"></p>
+					<p ng-bind="artist.tags.join()"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<pagination num-pages="pagination.count" current-page="pagination.current" on-select-page="changePage(page)"></pagination>
+</div>

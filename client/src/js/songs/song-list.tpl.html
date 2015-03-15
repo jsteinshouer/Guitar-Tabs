@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="list-group">
+		<div class="list-group-item" ng-repeat="song in songs" ng-click="navigation.go('/songs/' + song.id)">
+			<div class="row">
+				<div class="col-lg-2 col-md-2 list-col">
+					<div ng-show="!song.album.image" class="list-icon">
+					<span class="glyphicon glyphicon-music"></span>
+					</div>
+					<img src="{{song.album.image}}" alt="{{song.album.title || song.title}}" class="list-image" ng-show="song.album.image">
+				</div>
+				<div class="col-lg-8 col-md-8 list-col">
+					<h4>{{song.title}}</h4>
+					<p><a href="">{{song.album.title}}</a></p>
+					<p><a href="">{{song.artist.name}}</a></p>
+					<p ng-bind="song.tags.join()"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<pagination num-pages="pagination.count" current-page="pagination.current" on-select-page="changePage(page)"></pagination>
+</div>

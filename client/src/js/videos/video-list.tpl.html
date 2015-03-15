@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="list-group">
+		<div class="list-group-item" ng-repeat="video in videos" ng-click="go('/videos/' + video.id)">
+			<div class="row">
+				<div class="col-lg-2 col-md-2 list-col">
+					<div ng-show="!video.song.album.images[1].url" class="list-icon">
+					<span class="glyphicon glyphicon-music"></span>
+					</div>
+					<img class="media-object list-image" src="{{video.song.album.images[1].url}}" alt="{{video.song.album.title || video.title}}" ng-show="video.song.album.images[1].url">
+				</div>
+				<div class="col-lg-8 col-md-8 list-col">
+					<h4>{{video.title}}</h4>
+					<p><a ng-href="#/songs/{{video.song.id}}" >{{video.song.title}}</a></p>
+					<p><a >{{video.song.album.title}}</a></p>
+					<p><a ng-href="#/artists/{{video.song.artist.id}}">{{video.song.artist.name}}</a></p>
+					<p ng-bind="video.tags.join()"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<pagination num-pages="pagination.count" current-page="pagination.current" on-select-page="changePage(page)"></pagination>
+</div>

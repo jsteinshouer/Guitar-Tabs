@@ -1,0 +1,17 @@
+<div ng-controller="MenuCtrl">
+	<div class="list-group">
+		<a href="#/browse/tabs" class="list-group-item-block" ng-click="navigation.menu.close()">Tabs</a>
+		<a href="#/browse/videos" class="list-group-item-block" ng-click="navigation.menu.close()">Videos</a>
+		<a href="#/browse/songs" class="list-group-item-block" ng-click="navigation.menu.close()">Songs</a>
+		<a href="#/browse/artists" class="list-group-item-block" ng-click="navigation.menu.close()">Artists</a>
+		<a href="#/browse/tags" class="list-group-item-block" ng-click="navigation.menu.close()">Tags</a>
+		<a href="#{{navigation.newUrl}}" ng-show="navigation.newUrl" class="list-group-item-block" ng-click="navigation.menu.close()">New</a>
+	</div>
+</div>
+
+<!-- <ul class="nav nav-pills nav-stacked">
+  <li><a href="#/browse/tabs">Tabs</a></li>
+	<li><a href="#/browse/songs">Songs</a></li>
+	<li><a href="#/browse/artists">Artists</a></li>
+	<li><a href="#{{navigation.newUrl}}" ng-show="navigation.newUrl">New</a></li>
+</ul> -->

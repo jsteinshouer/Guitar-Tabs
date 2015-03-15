@@ -1,0 +1,15 @@
+
+
+rm assets --recurse --force
+mkdir assets
+mkdir assets/js
+cp ../client/dist/js/angular.min.js assets/js
+cp ../client/dist/js/guitar-tabs.js assets/js
+
+mkdir assets/css
+cp ../client/dist/css/guitar-tabs.css assets/css
+cp ../client/dist/fonts assets/fonts
+
+
+rm views/index.cfm --force
+cp ../client/dist/index.html views/index.cfm

@@ -1,0 +1,130 @@
+.tab-field {
+	font-family: monospace;
+	font-size: 12px;
+}
+
+.tab {
+	margin-bottom:20px;
+	margin-top:20px;
+	padding: 10px;
+	font-family: monospace;
+	font-size: 12px;
+	white-space: pre;
+	line-height: normal;
+	letter-spacing: normal;
+	width: 700px;
+	height: 400px;
+	vertical-align: baseline;
+	overflow-y: scroll;
+	border:#ffffff thin solid;
+}
+
+.tab-fullscreen {
+	margin-bottom:20px;
+	margin-top:0px;
+	padding: 10px;
+	background : #393939;
+	font-family: monospace;
+	font-size: 14px;
+	line-height: normal;
+	letter-spacing: normal;
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+
+.tab > pre {
+	color: white;
+}
+
+.tab-item {
+	height: 100px;
+}
+
+div.title { 
+	font-weight: bold;
+	font-size: 20px;
+	display: inline;
+	margin-left: 5px;
+}
+
+a.brand {
+	text-decoration: none;
+}
+
+.favicon {
+	margin: 10px;
+	height: 30px;
+}
+
+.list-image {
+	/*width: 100px;*/
+	height: 100px;
+}
+
+.list-icon {
+	width: 100px;
+	height: 100px;
+	padding: 4px;
+}
+
+.list-icon span {
+	font-size: 6em;
+}
+
+.list-col {
+	margin: 5px;
+}
+
+.list-col p, .list-col h4 {
+	margin: 3px;
+	padding: 0;
+}
+
+/* Small devices  */
+@media (max-width: 992px) {
+	.list-col {
+		margin: 15px;
+	}
+}
+
+.aside {
+    z-index:1049;
+    background:#393939;
+    position:fixed;
+    overflow:auto;
+    min-width:320px;
+    top:0;
+    bottom:0
+}
+
+.aside-header {
+    border-bottom:1px solid #fff;
+}
+.aside .aside-dialog .aside-header {
+    min-height:16.43px;
+    padding:6px 15px;
+    background:#2c2c2c;
+    color:#fff
+}
+
+.aside .aside-dialog .aside-body {
+ 	padding: 0px;
+ 	border-bottom: 0;
+ }
+
+.aside .aside-dialog .aside-footer {
+    border: 0;
+}
+
+ .navbar-icon > a:hover {
+	border-bottom: 0;
+ }
+ .navbar-icon a span {
+ 	margin-top: 10px;
+ 	font-size: 1.7em;
+ }
+
+ tags-input {
+ 	color: #000;
+ }
