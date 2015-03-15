@@ -175,12 +175,19 @@ angular.module("spotify/spotify-search.tpl.html", []).run(["$templateCache", fun
     "\n" +
     "<div class=\"row\">\n" +
     "	  <div class=\"col-lg-12 col-md-12\">\n" +
-    "		<div class=\"input-group\">\n" +
-    "			<input type=\"text\" class=\"form-control\" ng-model=\"search.query\">\n" +
-    "			<span class=\"input-group-btn\">\n" +
+    "	\n" +
+    "			<form class=\"form-horizontal\">\n" +
+    "				\n" +
+    "				<div class=\"spotify-search-form\">\n" +
+    "				<input type=\"text\" class=\"form-control\" ng-model=\"search.track\" placeholder=\"Track\">\n" +
+    "				\n" +
+    "		\n" +
+    "				<input type=\"text\" class=\"form-control\" ng-model=\"search.artist\" placeholder=\"Artist\">\n" +
+    "				\n" +
     "				<button class=\"btn btn-default\" type=\"button\" ng-click=\"search.findTracks()\">Search</button>\n" +
-    "			</span>\n" +
-    "		</div><!-- /input-group -->\n" +
+    "				</div>\n" +
+    "			</form>\n" +
+    "			\n" +
     "	</div><!-- /.col-lg-6 -->\n" +
     "</div>\n" +
     "<div style=\"margin-top: 20px\">\n" +

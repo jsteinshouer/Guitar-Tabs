@@ -56,6 +56,7 @@ module.exports = function (grunt) {
 		main: {
 			files: [
 				{ dest: '<%= distdir %>/fonts', src : '**', expand: true, cwd: 'lib/bootstrap/fonts' }
+				,{ dest: '<%= distdir %>/js', src : 'jquery.min.js', expand: true, cwd: 'lib/jquery/dist' }
 				//,{ dest: '<%= distdir %>', src : '*', expand: true, cwd: 'src', filter: 'isFile' }
 			]
 		}

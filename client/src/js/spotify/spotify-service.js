@@ -7,11 +7,16 @@ spotify.factory('Track', ['$http', '$q', function ($http, $q) {
 		angular.extend(this, data);
 	};
 
-	Track.search = function(term,cb,errcb) {
+	Track.search = function(trackQuery,artistQuery,cb,errcb) {
 
 		var tracks = [];
+		var q = "track:" + trackQuery;
 
-		$http.get('https://api.spotify.com/v1/search?q=track:"' + term + '"&type=track').then(function(res) {
+		if (artistQuery && artistQuery !== "") {
+			q = q + "+artist:" + artistQuery;
+		}
+
+		$http.get('https://api.spotify.com/v1/search?q=' + q + '"&type=track').then(function(res) {
 
 				angular.forEach(res.data.tracks.items,function(item) {
 					var track = {

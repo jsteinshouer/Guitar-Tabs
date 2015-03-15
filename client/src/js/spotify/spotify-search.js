@@ -11,7 +11,8 @@ angular.module('spotify.search', ['mgcrea.ngStrap','spotify.service'])
 		link: function(scope, el, attrs) {
 
 			scope.search = {
-				query: ""
+				track: "",
+				artist: ""
 			};
 
 			var searchModal = $modal({
@@ -24,13 +25,13 @@ angular.module('spotify.search', ['mgcrea.ngStrap','spotify.service'])
 			scope.openSearch = function() {
 				searchModal.$promise.then(function() {
 					searchModal.show();
-					searchModal.$element.find("input[type='text']").focus();
+					searchModal.$element.find("input[type='text']").get(0).focus();
 				}); 
 			};
 
 			scope.search.findTracks =  function() {
 				if (scope.track !== "") {
-					Track.search(this.query, function(tracks) {
+					Track.search(this.track, this.artist, function(tracks) {
 						scope.tracks = tracks;
 					});
 				}

@@ -4,6 +4,7 @@
   <title></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="/assets/css/guitar-tabs.css" rel="stylesheet">
+  <script type="text/javascript" src="./assets/js/jquery.min.js"></script>
   <script type="text/javascript" src="./assets/js/angular.min.js"></script>
   <script type="text/javascript" src="/assets/js/guitar-tabs.js"></script>
 </head>

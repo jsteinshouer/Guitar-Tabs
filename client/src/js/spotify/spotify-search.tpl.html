@@ -1,12 +1,19 @@
 
 <div class="row">
 	  <div class="col-lg-12 col-md-12">
-		<div class="input-group">
-			<input type="text" class="form-control" ng-model="search.query">
-			<span class="input-group-btn">
+	
+			<form class="form-horizontal">
+				
+				<div class="spotify-search-form">
+				<input type="text" class="form-control" ng-model="search.track" placeholder="Track">
+				
+		
+				<input type="text" class="form-control" ng-model="search.artist" placeholder="Artist">
+				
 				<button class="btn btn-default" type="button" ng-click="search.findTracks()">Search</button>
-			</span>
-		</div><!-- /input-group -->
+				</div>
+			</form>
+			
 	</div><!-- /.col-lg-6 -->
 </div>
 <div style="margin-top: 20px">

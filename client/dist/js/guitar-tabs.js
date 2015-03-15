@@ -1,4 +1,4 @@
-/*! guitar-tabs - v0.2.0 - 2015-03-14*/
+/*! guitar-tabs - v0.2.0 - 2015-03-15*/
 angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -176,12 +176,19 @@ angular.module("spotify/spotify-search.tpl.html", []).run(["$templateCache", fun
     "\n" +
     "<div class=\"row\">\n" +
     "	  <div class=\"col-lg-12 col-md-12\">\n" +
-    "		<div class=\"input-group\">\n" +
-    "			<input type=\"text\" class=\"form-control\" ng-model=\"search.query\">\n" +
-    "			<span class=\"input-group-btn\">\n" +
+    "	\n" +
+    "			<form class=\"form-horizontal\">\n" +
+    "				\n" +
+    "				<div class=\"spotify-search-form\">\n" +
+    "				<input type=\"text\" class=\"form-control\" ng-model=\"search.track\" placeholder=\"Track\">\n" +
+    "				\n" +
+    "		\n" +
+    "				<input type=\"text\" class=\"form-control\" ng-model=\"search.artist\" placeholder=\"Artist\">\n" +
+    "				\n" +
     "				<button class=\"btn btn-default\" type=\"button\" ng-click=\"search.findTracks()\">Search</button>\n" +
-    "			</span>\n" +
-    "		</div><!-- /input-group -->\n" +
+    "				</div>\n" +
+    "			</form>\n" +
+    "			\n" +
     "	</div><!-- /.col-lg-6 -->\n" +
     "</div>\n" +
     "<div style=\"margin-top: 20px\">\n" +
@@ -1025,7 +1032,8 @@ angular.module('spotify.search', ['mgcrea.ngStrap','spotify.service'])
 		link: function(scope, el, attrs) {
 
 			scope.search = {
-				query: ""
+				track: "",
+				artist: ""
 			};
 
 			var searchModal = $modal({
@@ -1038,13 +1046,13 @@ angular.module('spotify.search', ['mgcrea.ngStrap','spotify.service'])
 			scope.openSearch = function() {
 				searchModal.$promise.then(function() {
 					searchModal.show();
-					searchModal.$element.find("input[type='text']").focus();
+					searchModal.$element.find("input[type='text']").get(0).focus();
 				}); 
 			};
 
 			scope.search.findTracks =  function() {
 				if (scope.track !== "") {
-					Track.search(this.query, function(tracks) {
+					Track.search(this.track, this.artist, function(tracks) {
 						scope.tracks = tracks;
 					});
 				}
@@ -1080,11 +1088,16 @@ spotify.factory('Track', ['$http', '$q', function ($http, $q) {
 		angular.extend(this, data);
 	};
 
-	Track.search = function(term,cb,errcb) {
+	Track.search = function(trackQuery,artistQuery,cb,errcb) {
 
 		var tracks = [];
+		var q = "track:" + trackQuery;
 
-		$http.get('https://api.spotify.com/v1/search?q=track:"' + term + '"&type=track').then(function(res) {
+		if (artistQuery && artistQuery !== "") {
+			q = q + "+artist:" + artistQuery;
+		}
+
+		$http.get('https://api.spotify.com/v1/search?q=' + q + '"&type=track').then(function(res) {
 
 				angular.forEach(res.data.tracks.items,function(item) {
 					var track = {

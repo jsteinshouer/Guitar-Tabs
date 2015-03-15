@@ -128,3 +128,7 @@ a.brand {
  tags-input {
  	color: #000;
  }
+
+ .spotify-search-form input{
+ 	margin-bottom: 5px;
+ }

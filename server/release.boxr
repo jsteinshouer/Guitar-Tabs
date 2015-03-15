@@ -5,10 +5,10 @@ mkdir assets
 mkdir assets/js
 cp ../client/dist/js/jquery.min.js assets/js
 cp ../client/dist/js/angular.min.js assets/js
-cp ../client/dist/js/guitar-tabs.js assets/js
+cp ../client/dist/js/guitar-tabs.min.js assets/js/guitar-tabs.js
 
 mkdir assets/css
-cp ../client/dist/css/guitar-tabs.css assets/css
+cp ../client/dist/css/guitar-tabs.min.css assets/css/guitar-tabs.css
 cp ../client/dist/fonts assets/fonts
 
 
