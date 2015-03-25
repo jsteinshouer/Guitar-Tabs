@@ -26,6 +26,7 @@ angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", func
 angular.module("artists/artist-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("artists/artist-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"artist in artists\" ng-click=\"go('/artists/' + artist.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -148,6 +149,7 @@ angular.module("songs/song-form.tpl.html", []).run(["$templateCache", function($
 angular.module("songs/song-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("songs/song-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"song in songs\" ng-click=\"navigation.go('/songs/' + song.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -288,6 +290,7 @@ angular.module("tabs/tab-form.tpl.html", []).run(["$templateCache", function($te
 angular.module("tabs/tab-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tabs/tab-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"tab in tabs\" ng-click=\"go('/tabs/' + tab.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -333,13 +336,13 @@ angular.module("tags/tag-detail.tpl.html", []).run(["$templateCache", function($
 angular.module("tags/tag-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tags/tag-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"tag in tags\" ng-click=\"go('/tags/' + tag.id)\">\n" +
     "				<span class=\"badge\">{{tag.total}}</span>\n" +
     "				<h4>{{tag.title}}</h4>\n" +
     "		</div>\n" +
     "	</div>\n" +
-    "\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "</div>");
 }]);
@@ -408,6 +411,7 @@ angular.module("videos/video-form.tpl.html", []).run(["$templateCache", function
 angular.module("videos/video-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("videos/video-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"video in videos\" ng-click=\"go('/videos/' + video.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -427,7 +431,6 @@ angular.module("videos/video-list.tpl.html", []).run(["$templateCache", function
     "			</div>\n" +
     "		</div>\n" +
     "	</div>\n" +
-    "\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "</div>");
 }]);

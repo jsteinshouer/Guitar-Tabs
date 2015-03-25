@@ -1,4 +1,5 @@
 <div class="container">
+	<pagination num-pages="pagination.count" current-page="pagination.current" on-select-page="changePage(page)"></pagination>
 	<div class="list-group">
 		<div class="list-group-item" ng-repeat="artist in artists" ng-click="go('/artists/' + artist.id)">
 			<div class="row">

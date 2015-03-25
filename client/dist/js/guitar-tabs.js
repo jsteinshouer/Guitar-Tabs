@@ -1,4 +1,4 @@
-/*! guitar-tabs - v0.2.0 - 2015-03-15*/
+/*! guitar-tabs - v0.3.0 - 2015-03-24*/
 angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -27,6 +27,7 @@ angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", func
 angular.module("artists/artist-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("artists/artist-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"artist in artists\" ng-click=\"go('/artists/' + artist.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -149,6 +150,7 @@ angular.module("songs/song-form.tpl.html", []).run(["$templateCache", function($
 angular.module("songs/song-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("songs/song-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"song in songs\" ng-click=\"navigation.go('/songs/' + song.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -289,6 +291,7 @@ angular.module("tabs/tab-form.tpl.html", []).run(["$templateCache", function($te
 angular.module("tabs/tab-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tabs/tab-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"tab in tabs\" ng-click=\"go('/tabs/' + tab.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -334,13 +337,13 @@ angular.module("tags/tag-detail.tpl.html", []).run(["$templateCache", function($
 angular.module("tags/tag-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tags/tag-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"tag in tags\" ng-click=\"go('/tags/' + tag.id)\">\n" +
     "				<span class=\"badge\">{{tag.total}}</span>\n" +
     "				<h4>{{tag.title}}</h4>\n" +
     "		</div>\n" +
     "	</div>\n" +
-    "\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "</div>");
 }]);
@@ -409,6 +412,7 @@ angular.module("videos/video-form.tpl.html", []).run(["$templateCache", function
 angular.module("videos/video-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("videos/video-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"video in videos\" ng-click=\"go('/videos/' + video.id)\">\n" +
     "			<div class=\"row\">\n" +
@@ -428,7 +432,6 @@ angular.module("videos/video-list.tpl.html", []).run(["$templateCache", function
     "			</div>\n" +
     "		</div>\n" +
     "	</div>\n" +
-    "\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "</div>");
 }]);
@@ -687,13 +690,13 @@ angular.module('directives.pagination', [])
         '<li ng-class="{disabled: noNext()}"><a ng-click="selectNext()">Next</a></li>' +
       '</ul>',*/
     template: 
-      '<div class="btn-group btn-group-lg">' +
+      '<div class="btn-group btn-group-lg pagination hidden">' +
         '<button type="button" class="btn btn-default" ng-class="{disabled: noPrevious()}" ng-click="selectPrevious()">Previous</button>' +
         '<button type="button" class="btn btn-default" ng-repeat="page in pages" ng-class="{active: isActive(page)}" ng-click="selectPage(page)">{{page}}</button>' +
         '<button type="button" class="btn btn-default" ng-class="{disabled: noNext()}" ng-click="selectNext()">Next</button>' +
       '</div>',
     replace: true,
-    link: function(scope) {
+    link: function(scope,el) {
       scope.$watch('numPages', function(value) {
         scope.pages = [];
         for(var i=1;i<=value;i++) {
@@ -702,6 +705,12 @@ angular.module('directives.pagination', [])
         if ( scope.currentPage > value ) {
           scope.selectPage(value);
         }
+
+        // Unhide when there are pages
+        if (scope.pages.length) {
+        	el.removeClass("hidden");
+        }
+
       });
       scope.noPrevious = function() {
         return scope.currentPage === 1;

@@ -15,13 +15,13 @@ angular.module('directives.pagination', [])
         '<li ng-class="{disabled: noNext()}"><a ng-click="selectNext()">Next</a></li>' +
       '</ul>',*/
     template: 
-      '<div class="btn-group btn-group-lg">' +
+      '<div class="btn-group btn-group-lg pagination hidden">' +
         '<button type="button" class="btn btn-default" ng-class="{disabled: noPrevious()}" ng-click="selectPrevious()">Previous</button>' +
         '<button type="button" class="btn btn-default" ng-repeat="page in pages" ng-class="{active: isActive(page)}" ng-click="selectPage(page)">{{page}}</button>' +
         '<button type="button" class="btn btn-default" ng-class="{disabled: noNext()}" ng-click="selectNext()">Next</button>' +
       '</div>',
     replace: true,
-    link: function(scope) {
+    link: function(scope,el) {
       scope.$watch('numPages', function(value) {
         scope.pages = [];
         for(var i=1;i<=value;i++) {
@@ -30,6 +30,12 @@ angular.module('directives.pagination', [])
         if ( scope.currentPage > value ) {
           scope.selectPage(value);
         }
+
+        // Unhide when there are pages
+        if (scope.pages.length) {
+        	el.removeClass("hidden");
+        }
+
       });
       scope.noPrevious = function() {
         return scope.currentPage === 1;

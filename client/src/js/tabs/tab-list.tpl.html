@@ -1,4 +1,5 @@
 <div class="container">
+	<pagination num-pages="pagination.count" current-page="pagination.current" on-select-page="changePage(page)"></pagination>
 	<div class="list-group">
 		<div class="list-group-item" ng-repeat="tab in tabs" ng-click="go('/tabs/' + tab.id)">
 			<div class="row">

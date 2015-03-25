@@ -132,3 +132,7 @@ a.brand {
  .spotify-search-form input{
  	margin-bottom: 5px;
  }
+
+ .pagination {
+ 	margin-bottom: 30px;
+ }
