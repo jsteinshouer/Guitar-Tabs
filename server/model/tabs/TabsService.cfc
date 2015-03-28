@@ -148,21 +148,11 @@ component {
 		projections = createObject("java","org.hibernate.criterion.Projections");
 
 		/*** Create hibernate query with filtering and ordering ***/
-		tabSearch = ormGetSession().createCriteria("Tab");
-		tabSearch.add(restrictions.like("Title","#arguments.term#%"));
-		tabSearch.addOrder(order.asc("Title"));
-		tabSearch.setMaxResults(10);
+		search = ormGetSession().createCriteria("Tab");
+		search.add(restrictions.like("Title","#arguments.term#%"));
+		search.addOrder(order.asc("Title"));
+		search.setMaxResults(10);
 
-		pl = projections.projectionList();
-		pl.add(projections.property("TabId"));
-		pl.add(projections.property("Title"));
-		pl.add(projections.property("UrlSlug"));
-
-		tabSearch.setProjection(pl);
-
-
-		//return ORMExecuteQuery("SELECT TabId, Title, UrlSlug FROM Tab WHERE title like '#arguments.term#%'");
-
-		return tabSearch.list();
+		return search.list();
 	}
 }

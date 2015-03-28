@@ -289,7 +289,8 @@ angular.module("tabs/tab-form.tpl.html", []).run(["$templateCache", function($te
 
 angular.module("tabs/tab-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tabs/tab-list.tpl.html",
-    "<div class=\"container\">\n" +
+    "<div class=\"container\" ng-show=\"ready\">\n" +
+    "	<input type=\"text\" class=\"form-control input-lg\" ng-model=\"filter\" placeholder=\"Search\">\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"tab in tabs\" ng-click=\"go('/tabs/' + tab.id)\">\n" +

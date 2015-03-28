@@ -11,10 +11,13 @@ var tabs = angular.module('tabs', [
 
 tabs.controller('TabListCtrl', ['$scope','navigation','Tab',function($scope,navigation,Tab) {
 	$scope.pagination = {};
+	$scope.filter = "";
+
 	Tab.getItems({limit: 10},function(response) {
 		$scope.tabs = response.data.items;
 		$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
 		$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+		$scope.ready = true;
 	});
 
 	$scope.go = navigation.go;
@@ -22,10 +25,29 @@ tabs.controller('TabListCtrl', ['$scope','navigation','Tab',function($scope,navi
 	$scope.changePage = function(page) {
 		var offset = page - 1;
 
-		Tab.getItems({offset: offset},function(response) {
+		Tab.getItems({offset: offset,filter: $scope.filter},function(response) {
 			$scope.tabs = response.data.items;
 		});
 	};
+
+	/* Search */
+	$scope.$watch(function(scope) { return scope.filter },function(filterValue) {
+		if (filterValue.length > 1) {
+			Tab.getItems({limit: 10,filter: $scope.filter},function(response) {
+				$scope.tabs = response.data.items;
+				$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+				$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+			});
+		}
+		else {
+			Tab.getItems({limit: 10},function(response) {
+				$scope.tabs = response.data.items;
+				$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+				$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+			});
+		}
+	});
+
 
 }]);
 

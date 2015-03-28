@@ -24,12 +24,13 @@ tabService.factory('Tab', ['$http', '$q', function ($http, $q) {
 			limit: 10,
 			offset: 0,
 			fields: 'id,title,tags,song',
-			expand:0
+			expand:0,
+			filter: ''
 		};
 
 		options = angular.extend(defaults,options);
 
-		$http.get('/index.cfm/tabs?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields).then(cb,errcb);
+		$http.get('/index.cfm/tabs?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields+'&filter='+options.filter).then(cb,errcb);
 	};
 
 	/*Tab.getItemsByTag = function(tag,options,cb,errcb) {

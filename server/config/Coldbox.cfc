@@ -121,6 +121,7 @@ public void function development() {
 	coldbox.handlersIndexAutoReload = true;
 	coldbox.handlerCaching 			= false;
 	coldbox.eventCaching			= false;
+	coldbox.customErrorTemplate		= "/coldbox/system/includes/BugReport.cfm";
 	settings.baseUrl				= "/index.cfm/";
 	settings.useSSL					= false;
 }
