@@ -18,6 +18,7 @@ videos.controller('VideoListCtrl', ['$scope','navigation','Video',function($scop
 	});
 
 	$scope.go = navigation.go;
+	$scope.filter = "";
 
 	$scope.changePage = function(page) {
 		var offset = page - 1;
@@ -26,6 +27,15 @@ videos.controller('VideoListCtrl', ['$scope','navigation','Video',function($scop
 			$scope.videos = response.data.items;
 		});
 	};
+
+	/* Search */
+	$scope.$watch(function(scope) { return scope.filter },function(filterValue) {
+		Video.getItems({limit: 10,filter: $scope.filter},function(response) {
+			$scope.videos = response.data.items;
+			$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+			$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+		});
+	});
 
 }]);
 

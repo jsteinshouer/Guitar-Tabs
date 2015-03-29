@@ -11,8 +11,15 @@ component extends="handlers.base"
 	property name = "songsService" inject="model.songs.SongsService";
 
 	public any function index(event,rc,prc) {
+
+		event.paramValue("filter","");
 		
-		var videos = videosService.getAll();
+		if (len(rc.filter)) {
+			var videos = videosService.search(rc.filter);
+		}
+		else {
+			var videos = videosService.getAll();
+		}
 
 		rc.response = getCollection(videos,"id,title,song,song.album,tags",rc.offset,rc.limit);
 
