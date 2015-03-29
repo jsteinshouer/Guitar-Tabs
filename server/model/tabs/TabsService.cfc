@@ -13,7 +13,7 @@ component {
 	/*** Get all tabs ***/
 	public array function getAll() 
 	{
-		return entityload("tab");
+		return entityload("tab",{},"Title Asc");
 	}
 
 	/*** Populate a tab's properties  ***/
@@ -149,9 +149,9 @@ component {
 
 		/*** Create hibernate query with filtering and ordering ***/
 		search = ormGetSession().createCriteria("Tab");
-		search.add(restrictions.like("Title","#arguments.term#%"));
+		search.add(restrictions.like("Title","#arguments.term#%").ignoreCase());
 		search.addOrder(order.asc("Title"));
-		search.setMaxResults(10);
+		//search.setMaxResults(10);
 
 		return search.list();
 	}

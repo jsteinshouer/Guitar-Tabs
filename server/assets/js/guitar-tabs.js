@@ -1,4 +1,4 @@
-/*! guitar-tabs - v0.3.1 - 2015-03-28*/
+/*! guitar-tabs - v0.4.0 - 2015-03-28*/
 angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -1337,20 +1337,11 @@ tabs.controller('TabListCtrl', ['$scope','navigation','Tab',function($scope,navi
 
 	/* Search */
 	$scope.$watch(function(scope) { return scope.filter },function(filterValue) {
-		if (filterValue.length > 1) {
-			Tab.getItems({limit: 10,filter: $scope.filter},function(response) {
-				$scope.tabs = response.data.items;
-				$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
-				$scope.pagination.current = parseInt(response.data.offset,8) + 1;
-			});
-		}
-		else {
-			Tab.getItems({limit: 10},function(response) {
-				$scope.tabs = response.data.items;
-				$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
-				$scope.pagination.current = parseInt(response.data.offset,8) + 1;
-			});
-		}
+		Tab.getItems({limit: 10,filter: $scope.filter},function(response) {
+			$scope.tabs = response.data.items;
+			$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+			$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+		});
 	});
 
 

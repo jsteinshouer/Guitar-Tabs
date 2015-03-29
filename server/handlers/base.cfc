@@ -113,7 +113,7 @@ component output="false"
 		event.renderData( data=response,type="json", statusCode=rc.statusCode, statusText=rc.statusText);
 	}
 
-
+	/* TODO: Test to see id ORM may be more efficient for doing pagination */
 	public any function getCollection(data, fields, offset=0, limit=10) {
 		
 		var local = structNew();

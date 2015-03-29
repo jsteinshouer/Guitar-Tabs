@@ -158,9 +158,9 @@ component singleton=true {
 
 		/*** Create hibernate query with filtering and ordering ***/
 		search = ormGetSession().createCriteria("Song");
-		search.add(restrictions.like("Title","#arguments.term#%"));
+		search.add(restrictions.like("Title","#arguments.term#%").ignoreCase());
 		search.addOrder(order.asc("Title"));
-		search.setMaxResults(10);
+		//search.setMaxResults(10);
 
 		/*** We only want these properties ***/
 		// pl = projections.projectionList();
