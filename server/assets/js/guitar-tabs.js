@@ -1,4 +1,4 @@
-/*! guitar-tabs - v0.4.1 - 2015-03-29*/
+/*! guitar-tabs - v0.4.1 - 2015-03-30*/
 angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -338,6 +338,7 @@ angular.module("tags/tag-detail.tpl.html", []).run(["$templateCache", function($
 angular.module("tags/tag-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tags/tag-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<input type=\"text\" class=\"form-control input-lg\" ng-model=\"filter\" placeholder=\"Search\">\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"tag in tags\" ng-click=\"go('/tags/' + tag.id)\">\n" +
@@ -1461,12 +1462,13 @@ tagService.factory('Tag', ['$http', '$q', function ($http, $q) {
 			limit: 10,
 			offset: 0,
 			fields: 'id,title,total',
-			expand:0
+			expand:0,
+			filter: ""
 		};
 
 		options = angular.extend(defaults,options);
 
-		$http.get('/index.cfm/tags?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields).then(cb,errcb);
+		$http.get('/index.cfm/tags?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields+'&filter='+options.filter).then(cb,errcb);
 	};
 
 	return Tag;
@@ -1483,6 +1485,8 @@ var tags = angular.module('tags', [
 
 tags.controller('TagListCtrl', ['$scope','navigation','Tag',function($scope,navigation,Tag) {
 	$scope.pagination = {};
+	$scope.filter = "";
+
 	Tag.getItems({limit: 10},function(response) {
 		$scope.tags = response.data.items;
 		$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
@@ -1498,6 +1502,15 @@ tags.controller('TagListCtrl', ['$scope','navigation','Tag',function($scope,navi
 			$scope.tags = response.data.items;
 		});
 	};
+
+	/* Search */
+	$scope.$watch(function(scope) { return scope.filter },function(filterValue) {
+		Tag.getItems({limit: 10,filter: $scope.filter},function(response) {
+			$scope.tags = response.data.items;
+			$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+			$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+		});
+	});
 
 }]);
 

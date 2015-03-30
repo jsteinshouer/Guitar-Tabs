@@ -7,6 +7,8 @@ var tags = angular.module('tags', [
 
 tags.controller('TagListCtrl', ['$scope','navigation','Tag',function($scope,navigation,Tag) {
 	$scope.pagination = {};
+	$scope.filter = "";
+
 	Tag.getItems({limit: 10},function(response) {
 		$scope.tags = response.data.items;
 		$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
@@ -22,6 +24,15 @@ tags.controller('TagListCtrl', ['$scope','navigation','Tag',function($scope,navi
 			$scope.tags = response.data.items;
 		});
 	};
+
+	/* Search */
+	$scope.$watch(function(scope) { return scope.filter },function(filterValue) {
+		Tag.getItems({limit: 10,filter: $scope.filter},function(response) {
+			$scope.tags = response.data.items;
+			$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+			$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+		});
+	});
 
 }]);
 

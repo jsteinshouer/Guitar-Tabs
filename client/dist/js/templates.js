@@ -337,6 +337,7 @@ angular.module("tags/tag-detail.tpl.html", []).run(["$templateCache", function($
 angular.module("tags/tag-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("tags/tag-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<input type=\"text\" class=\"form-control input-lg\" ng-model=\"filter\" placeholder=\"Search\">\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"tag in tags\" ng-click=\"go('/tags/' + tag.id)\">\n" +

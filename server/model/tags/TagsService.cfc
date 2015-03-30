@@ -63,16 +63,9 @@ component output="false" displayname="TagsService" extends="model.BaseService" {
 
 		/*** Create hibernate query with filtering and ordering ***/
 		search = ormGetSession().createCriteria("Tag");
-		search.add(restrictions.like("Title","#arguments.term#%"));
+		search.add(restrictions.like("Title","#arguments.term#%").ignoreCase());
 		search.addOrder(order.asc("Title"));
-		search.setMaxResults(10);
-
-		/*** We only want these properties ***/
-		pl = projections.projectionList();
-		pl.add(projections.property("TagId"));
-		pl.add(projections.property("Title"));
-		pl.add(projections.property("UrlSlug"));
-		search.setProjection(pl);
+		//search.setMaxResults(10);
 
 		return search.list();
 	}

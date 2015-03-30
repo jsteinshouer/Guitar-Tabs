@@ -11,9 +11,15 @@ component extends="handlers.base"
 
 	public any function index(event,rc,prc) {
 
-		event.paramValue("rc.fields","id,title,total,tabs,videos");
+		event.paramValue("fields","id,title,total,tabs,videos");
+		event.paramValue("filter","");
 		
-		var tags = tagsService.getAll();
+		if (len(rc.filter)) {
+			var tags = tagsService.search(rc.filter);
+		}
+		else {
+			var tags = tagsService.getAll();
+		}
 
 		rc.response = getCollection(tags,rc.fields,rc.offset,rc.limit);
 
