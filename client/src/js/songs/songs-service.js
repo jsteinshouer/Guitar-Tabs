@@ -37,19 +37,6 @@ songService.factory('Song', ['$http', '$q', function ($http, $q) {
 		$http.get('/index.cfm/songs?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields).then(cb,errcb);
 	};
 
-	/*Song.getItemsByTag = function(tag,options,cb,errcb) {
-		var defaults = {
-			limit: 10,
-			offset: 0,
-			fields: 'key,title,description',
-			expand:0
-		};
-
-		options = angular.extend(defaults,options);
-
-		$http.get('/tags/' + tag + '?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields).then(cb,errcb);
-	};*/
-
 	Song.search = function(term) {
 		return $http.get('/index.cfm/songs/search/' + term);
 	};
@@ -63,10 +50,10 @@ songService.factory('Song', ['$http', '$q', function ($http, $q) {
 		var self = this;
 		if (this.id && this.id !== '') {
 			$http.put(url + '/' + this.id, {
-					title: this.title,
-					key: this.key,
-					content: this.content,
-					tags: this.tags
+				title: this.title,
+				spotifyData: this.spotifyData,
+				artist: this.artist,
+				tags: this.tags
 			})
 			.then(function(response) {
 				self.id = response.data.id;
@@ -76,10 +63,10 @@ songService.factory('Song', ['$http', '$q', function ($http, $q) {
 		
 		else {
 			$http.post(url, {
-					title: this.title,
-					key: this.key,
-					content: this.content,
-					tags: this.tags
+				title: this.title,
+				spotifyData: this.spotifyData,
+				artist: this.artist,
+				tags: this.tags
 			})
 			.then(function(response) {
 				self.id = response.data.id;

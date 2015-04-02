@@ -60,7 +60,7 @@ videos.controller('VideoEditCtrl', ['$scope','Video','Song','$routeParams','navi
 		Video.get($routeParams.id,function(response) {
 			$scope.video = new Video(response.data);
 
-			angular.forEach($scope.tab.tags, function(item) {
+			angular.forEach($scope.video.tags, function(item) {
 				$scope.tags.push({"text": item});
 			});
 

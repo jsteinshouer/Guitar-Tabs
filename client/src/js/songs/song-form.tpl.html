@@ -5,8 +5,8 @@
     <input type="text" class="form-control input-lg" name="title" ng-model="song.title" required>
   </div>
   <div class="form-group">
-    <label for="artist">Artist</label>
-    <input type="text" class="form-control input-lg" name="artist" ng-model="song.artist" />
+    <label for="artist">Artist</label><spotify-artist-search artist="song.artist"></spotify-artist-search>
+    <input type="text" class="form-control input-lg" name="artist" ng-model="song.artist.name" ng-options="artist as artist.name" />
   </div>
   <button type="submit" class="btn btn-default">Save</button>
   <span style="margin-left: 5px" id="message"></span>

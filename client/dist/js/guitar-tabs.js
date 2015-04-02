@@ -1,5 +1,5 @@
-/*! guitar-tabs - v0.4.1 - 2015-03-30*/
-angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
+/*! guitar-tabs - v0.5.0 - 2015-04-01*/
+angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-artist-search.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("artists/artist-detail.tpl.html",
@@ -138,8 +138,8 @@ angular.module("songs/song-form.tpl.html", []).run(["$templateCache", function($
     "    <input type=\"text\" class=\"form-control input-lg\" name=\"title\" ng-model=\"song.title\" required>\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
-    "    <label for=\"artist\">Artist</label>\n" +
-    "    <input type=\"text\" class=\"form-control input-lg\" name=\"artist\" ng-model=\"song.artist\" />\n" +
+    "    <label for=\"artist\">Artist</label><spotify-artist-search artist=\"song.artist\"></spotify-artist-search>\n" +
+    "    <input type=\"text\" class=\"form-control input-lg\" name=\"artist\" ng-model=\"song.artist.name\" ng-options=\"artist as artist.name\" />\n" +
     "  </div>\n" +
     "  <button type=\"submit\" class=\"btn btn-default\">Save</button>\n" +
     "  <span style=\"margin-left: 5px\" id=\"message\"></span>\n" +
@@ -171,6 +171,39 @@ angular.module("songs/song-list.tpl.html", []).run(["$templateCache", function($
     "	</div>\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "</div>");
+}]);
+
+angular.module("spotify/spotify-artist-search.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("spotify/spotify-artist-search.tpl.html",
+    "\n" +
+    "<div class=\"row\">\n" +
+    "	  <div class=\"col-lg-12 col-md-12\">\n" +
+    "	\n" +
+    "			<form class=\"form-horizontal\">			\n" +
+    "				<div class=\"spotify-search-form\">\n" +
+    "				<input type=\"text\" class=\"form-control\" ng-model=\"search.artist\" placeholder=\"Artist\">				\n" +
+    "				<button class=\"btn btn-default\" type=\"button\" ng-click=\"search.find()\">Search</button>\n" +
+    "				</div>\n" +
+    "			</form>\n" +
+    "			\n" +
+    "	</div><!-- /.col-lg-6 -->\n" +
+    "</div>\n" +
+    "<div style=\"margin-top: 20px\">\n" +
+    "	<div class=\"list-group\">\n" +
+    "	<div class=\"list-group-item\" ng-repeat=\"artist in artists\">\n" +
+    "	<div class=\"row\">\n" +
+    "		<div class=\"col-lg-4 col-md-4\">\n" +
+    "			<img src=\"{{artist.images[0].url}}\" alt=\"{{artist.name}}\" width=\"100px\">\n" +
+    "		</div>\n" +
+    "		<div class=\"col-lg-8 col-md-8\">\n" +
+    "			<h4 class=\"list-group-item-heading\"><a ng-click=\"search.selectArtist(artist)\" data-dismiss=\"modal\">{{artist.name}}</a></h4>\n" +
+    "			<p class=\"list-group-item-text\">{{artist.genres.join(\", \")}}</p>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "	</div>\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("spotify/spotify-search.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -491,7 +524,9 @@ app.config(['$routeProvider', function($routeProvider) {
 		when('/spotify/songs', {templateUrl: 'songs/spotify-search.tpl.html', controller:'SpotifySongSearchCtrl'}).
 		when('/tabs/new', {templateUrl: 'tabs/tab-form.tpl.html', controller:'TabEditCtrl'}).
 		when('/videos/new', {templateUrl: 'videos/video-form.tpl.html', controller:'VideoEditCtrl'}).
+		when('/songs/new', {templateUrl: 'songs/song-form.tpl.html', controller:'SongEditCtrl'}).
 		when('/tabs/edit/:id', {templateUrl: 'tabs/tab-form.tpl.html', controller:'TabEditCtrl'}).
+		when('/songs/edit/:id', {templateUrl: 'songs/song-form.tpl.html', controller:'SongEditCtrl'}).
 		when('/videos/edit/:id', {templateUrl: 'videos/video-form.tpl.html', controller:'VideoEditCtrl'}).
 		when('/tabs/:id', {templateUrl: 'tabs/tab-detail.tpl.html', controller:'TabDetailCtrl'}).
 		when('/videos/:id', {templateUrl: 'videos/video-detail.tpl.html', controller:'VideoDetailCtrl'}).
@@ -925,19 +960,6 @@ songService.factory('Song', ['$http', '$q', function ($http, $q) {
 		$http.get('/index.cfm/songs?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields).then(cb,errcb);
 	};
 
-	/*Song.getItemsByTag = function(tag,options,cb,errcb) {
-		var defaults = {
-			limit: 10,
-			offset: 0,
-			fields: 'key,title,description',
-			expand:0
-		};
-
-		options = angular.extend(defaults,options);
-
-		$http.get('/tags/' + tag + '?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields).then(cb,errcb);
-	};*/
-
 	Song.search = function(term) {
 		return $http.get('/index.cfm/songs/search/' + term);
 	};
@@ -951,10 +973,10 @@ songService.factory('Song', ['$http', '$q', function ($http, $q) {
 		var self = this;
 		if (this.id && this.id !== '') {
 			$http.put(url + '/' + this.id, {
-					title: this.title,
-					key: this.key,
-					content: this.content,
-					tags: this.tags
+				title: this.title,
+				spotifyData: this.spotifyData,
+				artist: this.artist,
+				tags: this.tags
 			})
 			.then(function(response) {
 				self.id = response.data.id;
@@ -964,10 +986,10 @@ songService.factory('Song', ['$http', '$q', function ($http, $q) {
 		
 		else {
 			$http.post(url, {
-					title: this.title,
-					key: this.key,
-					content: this.content,
-					tags: this.tags
+				title: this.title,
+				spotifyData: this.spotifyData,
+				artist: this.artist,
+				tags: this.tags
 			})
 			.then(function(response) {
 				self.id = response.data.id;
@@ -1031,9 +1053,79 @@ songs.controller('SongDetailCtrl', ['$scope','Song','Track','$routeParams','navi
 	});
 
 }]);
-angular.module('spotify.search', ['mgcrea.ngStrap','spotify.service'])
 
-.directive('spotifySearch',['$modal','Track','SpotifyArtist', function($modal,Track,SpotifyArtist) {
+songs.controller('SongEditCtrl', ['$scope','Song','$routeParams','navigation','$alert', function($scope,Song,$routeParams,navigation,$alert) {
+	
+	$scope.song = {};	
+	$scope.tags = [];
+
+	if ($routeParams.id) {
+		Song.get($routeParams.id,function(response) {
+			$scope.song = new Song(response.data);
+
+			angular.forEach($scope.song.tags, function(item) {
+				$scope.tags.push({"text": item});
+			});
+
+			navigation.title = $scope.song.title;
+			navigation.editUrl = "/songs/edit/" + $scope.song.id;
+		});
+	}
+	else {
+		$scope.song = new Song();
+
+		navigation.title = "New Song";
+	}
+
+	$scope.save = function() {
+		$scope.song.tags = [];
+
+		angular.forEach($scope.tags, function(item) {
+			$scope.song.tags.push(item.text);
+		});
+
+		$scope.song.save(function() {
+
+			navigation.title = $scope.song.title;
+
+			/* Show success message */	
+			$alert({
+				title: 'Saved!', 
+				content: 'The song was saved successfully.',
+				placement: 'top-right', 
+				type: 'success', 
+				duration: 5,
+				keyboard: true, 
+				show: true
+			});
+
+
+		},function(response){
+			
+			var errorAlert = $alert({
+				title: 'Error!', 
+				placement: 'top-right', 
+				type: 'danger', 
+				duration: 5,
+				keyboard: true, 
+				show: false
+			});
+
+			if (response.status = 404) {
+				errorAlert.content = 'Some required data was missing.';
+			}
+			else {
+				errorAlert.content = 'An error occured while saving.';
+			}
+
+			errorAlert.show();
+
+		});
+	};
+}]);
+var spotifySearch = angular.module('spotify.search', ['mgcrea.ngStrap','spotify.service']);
+
+spotifySearch.directive('spotifySearch',['$modal','Track','SpotifyArtist', function($modal,Track,SpotifyArtist) {
 	return {
 		restrict: 'E',
 		scope: {
@@ -1082,8 +1174,60 @@ angular.module('spotify.search', ['mgcrea.ngStrap','spotify.service'])
 					scope.song.album = data.album;
 				});
 				SpotifyArtist.get(track.artist.id,function(artist) {
-					console.log(artist);
 					scope.song.artist.spotifyData = artist;
+				});
+				searchModal.$promise.then(searchModal.hide);
+			};
+
+		}
+	};
+}]);
+
+spotifySearch.directive('spotifyArtistSearch',['$modal','SpotifyArtist', function($modal,SpotifyArtist) {
+	return {
+		restrict: 'E',
+		scope: {
+			artist: '='
+		},
+		template: '<a href="" style="margin-left: 10px" ng-click="openSearch()">Search</a>',
+		replace: true,
+		link: function(scope, el, attrs) {
+
+			scope.search = {
+				artist: ""
+			};
+
+			var searchModal = $modal({
+				scope: scope, 
+				title: 'Artist Search', 
+				contentTemplate: 'spotify/spotify-artist-search.tpl.html',
+				show: false
+			});
+
+			scope.openSearch = function() {
+				searchModal.$promise.then(function() {
+					searchModal.show();
+					searchModal.$element.find("input[type='text']").get(0).focus();
+				}); 
+			};
+
+			scope.search.find =  function() {
+				if (scope.artist !== "") {
+					SpotifyArtist.search(this.artist, function(artists) {
+						scope.artists = artists;
+					});
+				}
+			};
+
+			scope.search.selectArtist = function(artist) {
+				scope.artist = {
+					name: '',
+					id: '',
+					spotifyData:{}
+				};
+				SpotifyArtist.get(artist.id,function(artist) {
+					scope.artist.name = artist.name
+					scope.artist.spotifyData = artist;
 				});
 				searchModal.$promise.then(searchModal.hide);
 			};
@@ -1181,10 +1325,8 @@ spotify.factory('SpotifyArtist', ['$http', '$q', function ($http, $q) {
 		var artists = [];
 
 		$http.get('https://api.spotify.com/v1/search?q=artist:"' + term + '"&type=artist').then(function(res) {
-
 				cb(res.data.artists.items);
-
-			},errcb);
+		},errcb);
 	};
 
 	Artist.get = function(id,cb,errcb) {
@@ -1692,7 +1834,7 @@ videos.controller('VideoEditCtrl', ['$scope','Video','Song','$routeParams','navi
 		Video.get($routeParams.id,function(response) {
 			$scope.video = new Video(response.data);
 
-			angular.forEach($scope.tab.tags, function(item) {
+			angular.forEach($scope.video.tags, function(item) {
 				$scope.tags.push({"text": item});
 			});
 

@@ -46,7 +46,7 @@ component extends="handlers.base"
 		if (!tabsService.save(args.tab))
 		{
 			/*** failure - show errors ***/
-			rc.message = arraytolist(rc.tab.getErrors(),",");
+			rc.message = arraytolist(args.tab.getErrors(),",");
 			throw(type="Bad Request",message=rc.message,errorcode="400");
 		}
 		else {

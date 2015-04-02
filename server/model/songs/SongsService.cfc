@@ -115,7 +115,7 @@ component singleton=true {
 		}	
 
 		/*** Set from list rather than a array of tag objects ***/
-		arguments.song.setTagsByList(arguments.tags);
+		arguments.song.setTagsByList(arrayToList(arguments.tags));
 	}
 
 	/*** Get a song by title ***/

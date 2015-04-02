@@ -44,36 +44,38 @@ component extends="handlers.base"
 
 
 	public function create(event,rc,prc) {
-		
-		/* var args = rc.contentBody;
-		args.tab = tabsService.get(rc.id);
-		tabsService.populate(argumentCollection=args); */
 
-		/*** try to save the tab ***/
-		/* if (!tabsService.save(args.tab))
+		event.paramValue( name="id", value=0 );
+		
+		var args = rc.contentBody;
+		args.song = songsService.get(rc.id);
+		songsService.populate(argumentCollection=args);
+
+		/*** try to save the song ***/
+		if (!songsService.save(args.song)) {
 	
-			rc.message = arraytolist(rc.tab.getErrors(),",");
+			rc.message = arraytolist(args.song.getErrors(),",");
 			throw(type="Bad Request",message=rc.message,errorcode="400");
 		}
 		else {
 			rc.statusCode = 201;
 			rc.statusText = "Created";
-			rc.response = {"msg" = "Created", "id"=args.tab.getUrlSlug()};
-		} */
+			rc.response = {"msg" = "Created", "id"=args.song.getUrlSlug()};
+		}
 	}
 
 	public function update(event,rc,prc) {
 		
-		/* event.paramValue( name="id", value=0 );
+		event.paramValue( name="id", value=0 );
 
 		if (len(rc.id)) {
 			var args = rc.contentBody;
-			args.tab = tabsService.get(rc.id);
-			tabsService.populate(argumentCollection=args);
+			args.song = songsService.get(rc.id);
+			songsService.populate(argumentCollection=args);
 
-			if (!tabsService.save(args.tab))
+			if (!songsService.save(args.song))
 			{
-				rc.message = arraytolist(rc.tab.getErrors(),",");
+				rc.message = arraytolist(rc.song.getErrors(),",");
 				throw(type="Bad Request",message=rc.message,errorcode="400");
 			}
 			else {
@@ -84,7 +86,7 @@ component extends="handlers.base"
 		}
 		else {
 			throw(type="Bad Request",message="Id is required!",errorcode="400");
-		} */
+		}
 
 	}
 

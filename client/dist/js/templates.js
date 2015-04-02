@@ -1,4 +1,4 @@
-angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
+angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-artist-search.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("artists/artist-detail.tpl.html",
@@ -137,8 +137,8 @@ angular.module("songs/song-form.tpl.html", []).run(["$templateCache", function($
     "    <input type=\"text\" class=\"form-control input-lg\" name=\"title\" ng-model=\"song.title\" required>\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
-    "    <label for=\"artist\">Artist</label>\n" +
-    "    <input type=\"text\" class=\"form-control input-lg\" name=\"artist\" ng-model=\"song.artist\" />\n" +
+    "    <label for=\"artist\">Artist</label><spotify-artist-search artist=\"song.artist\"></spotify-artist-search>\n" +
+    "    <input type=\"text\" class=\"form-control input-lg\" name=\"artist\" ng-model=\"song.artist.name\" ng-options=\"artist as artist.name\" />\n" +
     "  </div>\n" +
     "  <button type=\"submit\" class=\"btn btn-default\">Save</button>\n" +
     "  <span style=\"margin-left: 5px\" id=\"message\"></span>\n" +
@@ -170,6 +170,39 @@ angular.module("songs/song-list.tpl.html", []).run(["$templateCache", function($
     "	</div>\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "</div>");
+}]);
+
+angular.module("spotify/spotify-artist-search.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("spotify/spotify-artist-search.tpl.html",
+    "\n" +
+    "<div class=\"row\">\n" +
+    "	  <div class=\"col-lg-12 col-md-12\">\n" +
+    "	\n" +
+    "			<form class=\"form-horizontal\">			\n" +
+    "				<div class=\"spotify-search-form\">\n" +
+    "				<input type=\"text\" class=\"form-control\" ng-model=\"search.artist\" placeholder=\"Artist\">				\n" +
+    "				<button class=\"btn btn-default\" type=\"button\" ng-click=\"search.find()\">Search</button>\n" +
+    "				</div>\n" +
+    "			</form>\n" +
+    "			\n" +
+    "	</div><!-- /.col-lg-6 -->\n" +
+    "</div>\n" +
+    "<div style=\"margin-top: 20px\">\n" +
+    "	<div class=\"list-group\">\n" +
+    "	<div class=\"list-group-item\" ng-repeat=\"artist in artists\">\n" +
+    "	<div class=\"row\">\n" +
+    "		<div class=\"col-lg-4 col-md-4\">\n" +
+    "			<img src=\"{{artist.images[0].url}}\" alt=\"{{artist.name}}\" width=\"100px\">\n" +
+    "		</div>\n" +
+    "		<div class=\"col-lg-8 col-md-8\">\n" +
+    "			<h4 class=\"list-group-item-heading\"><a ng-click=\"search.selectArtist(artist)\" data-dismiss=\"modal\">{{artist.name}}</a></h4>\n" +
+    "			<p class=\"list-group-item-text\">{{artist.genres.join(\", \")}}</p>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
+    "	</div>\n" +
+    "	</div>\n" +
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("spotify/spotify-search.tpl.html", []).run(["$templateCache", function($templateCache) {

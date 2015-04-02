@@ -43,7 +43,9 @@ app.config(['$routeProvider', function($routeProvider) {
 		when('/spotify/songs', {templateUrl: 'songs/spotify-search.tpl.html', controller:'SpotifySongSearchCtrl'}).
 		when('/tabs/new', {templateUrl: 'tabs/tab-form.tpl.html', controller:'TabEditCtrl'}).
 		when('/videos/new', {templateUrl: 'videos/video-form.tpl.html', controller:'VideoEditCtrl'}).
+		when('/songs/new', {templateUrl: 'songs/song-form.tpl.html', controller:'SongEditCtrl'}).
 		when('/tabs/edit/:id', {templateUrl: 'tabs/tab-form.tpl.html', controller:'TabEditCtrl'}).
+		when('/songs/edit/:id', {templateUrl: 'songs/song-form.tpl.html', controller:'SongEditCtrl'}).
 		when('/videos/edit/:id', {templateUrl: 'videos/video-form.tpl.html', controller:'VideoEditCtrl'}).
 		when('/tabs/:id', {templateUrl: 'tabs/tab-detail.tpl.html', controller:'TabDetailCtrl'}).
 		when('/videos/:id', {templateUrl: 'videos/video-detail.tpl.html', controller:'VideoDetailCtrl'}).

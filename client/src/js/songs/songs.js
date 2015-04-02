@@ -44,3 +44,73 @@ songs.controller('SongDetailCtrl', ['$scope','Song','Track','$routeParams','navi
 	});
 
 }]);
+
+songs.controller('SongEditCtrl', ['$scope','Song','$routeParams','navigation','$alert', function($scope,Song,$routeParams,navigation,$alert) {
+	
+	$scope.song = {};	
+	$scope.tags = [];
+
+	if ($routeParams.id) {
+		Song.get($routeParams.id,function(response) {
+			$scope.song = new Song(response.data);
+
+			angular.forEach($scope.song.tags, function(item) {
+				$scope.tags.push({"text": item});
+			});
+
+			navigation.title = $scope.song.title;
+			navigation.editUrl = "/songs/edit/" + $scope.song.id;
+		});
+	}
+	else {
+		$scope.song = new Song();
+
+		navigation.title = "New Song";
+	}
+
+	$scope.save = function() {
+		$scope.song.tags = [];
+
+		angular.forEach($scope.tags, function(item) {
+			$scope.song.tags.push(item.text);
+		});
+
+		$scope.song.save(function() {
+
+			navigation.title = $scope.song.title;
+
+			/* Show success message */	
+			$alert({
+				title: 'Saved!', 
+				content: 'The song was saved successfully.',
+				placement: 'top-right', 
+				type: 'success', 
+				duration: 5,
+				keyboard: true, 
+				show: true
+			});
+
+
+		},function(response){
+			
+			var errorAlert = $alert({
+				title: 'Error!', 
+				placement: 'top-right', 
+				type: 'danger', 
+				duration: 5,
+				keyboard: true, 
+				show: false
+			});
+
+			if (response.status = 404) {
+				errorAlert.content = 'Some required data was missing.';
+			}
+			else {
+				errorAlert.content = 'An error occured while saving.';
+			}
+
+			errorAlert.show();
+
+		});
+	};
+}]);

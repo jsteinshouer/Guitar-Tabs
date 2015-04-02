@@ -88,10 +88,8 @@ spotify.factory('SpotifyArtist', ['$http', '$q', function ($http, $q) {
 		var artists = [];
 
 		$http.get('https://api.spotify.com/v1/search?q=artist:"' + term + '"&type=artist').then(function(res) {
-
 				cb(res.data.artists.items);
-
-			},errcb);
+		},errcb);
 	};
 
 	Artist.get = function(id,cb,errcb) {
