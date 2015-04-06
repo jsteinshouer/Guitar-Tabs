@@ -1,6 +1,6 @@
 {
   "name": "guitar-tabs",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "homepage": "https://github.com/jsteinshouer/guitar-tabs",
   "description": "application to manage my guitar tabluature",
   "main": "index.cfm",

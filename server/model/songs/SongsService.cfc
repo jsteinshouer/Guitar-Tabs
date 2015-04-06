@@ -75,12 +75,12 @@ component singleton=true {
 		param name="arguments.title" default="";
 		param name="arguments.spotifyId" default="";
 		param name="arguments.album" default="#{}#";
-		param name="arguments.tags" default="";
+		param name="arguments.tags" default="#[]#";
 		param name="arguments.artist.id" default="";
 		param name="arguments.artist.name" default="";
 
 		/*** Is this song associated with an artist? ***/
-		if (len(arguments.artist.id) || len(arguments.artist.name)) {
+		if (arguments.artist.id != 0 && (len(arguments.artist.id) || len(arguments.artist.name))) {
 			/*** get existing or new album entity ***/
 			local.artist = artistsService.get(arguments.artist.id,arguments.artist.name);
 			/*** Populate and set the associated album ***/

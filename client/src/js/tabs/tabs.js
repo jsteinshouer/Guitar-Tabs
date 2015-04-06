@@ -92,11 +92,15 @@ tabs.controller('TabEditCtrl', ['$scope','Tab','Song','$routeParams', '$alert', 
 	};
 
 	$scope.save = function() {
-			$scope.tab.tags = [];
+		$scope.tab.tags = [];
 
-			angular.forEach($scope.tags, function(item) {
-				$scope.tab.tags.push(item.text);
-			});
+		angular.forEach($scope.tags, function(item) {
+			$scope.tab.tags.push(item.text);
+		});
+
+		if (typeof($scope.tab.song) === "string") {
+			$scope.tab.song = new Song({title: $scope.tab.song,tags: []});
+		}
 
 		$scope.tab.save(function() {
 

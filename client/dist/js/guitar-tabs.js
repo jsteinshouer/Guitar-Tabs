@@ -1,4 +1,4 @@
-/*! guitar-tabs - v0.5.0 - 2015-04-01*/
+/*! guitar-tabs - v0.6.0 - 2015-04-05*/
 angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-artist-search.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -1541,11 +1541,15 @@ tabs.controller('TabEditCtrl', ['$scope','Tab','Song','$routeParams', '$alert', 
 	};
 
 	$scope.save = function() {
-			$scope.tab.tags = [];
+		$scope.tab.tags = [];
 
-			angular.forEach($scope.tags, function(item) {
-				$scope.tab.tags.push(item.text);
-			});
+		angular.forEach($scope.tags, function(item) {
+			$scope.tab.tags.push(item.text);
+		});
+
+		if (typeof($scope.tab.song) === "string") {
+			$scope.tab.song = new Song({title: $scope.tab.song,tags: []});
+		}
 
 		$scope.tab.save(function() {
 

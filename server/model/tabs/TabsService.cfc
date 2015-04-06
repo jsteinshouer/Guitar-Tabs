@@ -29,7 +29,7 @@ component {
 		param name="arguments.song.album" default="#{}#";
 		param name="arguments.song.artist.id" default=0;
 		param name="arguments.song.artist.name" default="";
-		param name="arguments.tags" default="";
+		param name="arguments.tags" default="#[]#";
 
 		/*** Populate associated song ***/
 		if (len(arguments.song.id) || len(arguments.song.title)) {
