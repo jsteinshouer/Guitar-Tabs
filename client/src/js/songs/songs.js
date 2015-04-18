@@ -10,6 +10,8 @@ songs = angular.module('songs', [
 songs.controller('SongListCtrl', ['$scope','Song','navigation',function($scope,Song,navigation) {
 	$scope.navigation = navigation;
 	$scope.pagination = {};
+	$scope.filter = "";
+
 	Song.getItems({limit: 10},function(response) {
 		$scope.songs = response.data.items;
 		$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
@@ -23,6 +25,15 @@ songs.controller('SongListCtrl', ['$scope','Song','navigation',function($scope,S
 			$scope.songs = response.data.items;
 		});
 	};
+
+	/* Search */
+	$scope.$watch(function(scope) { return scope.filter },function(filterValue) {
+		Song.getItems({limit: 10,filter: $scope.filter},function(response) {
+			$scope.songs = response.data.items;
+			$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+			$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+		});
+	});
 }]);
 
 songs.controller('SongDetailCtrl', ['$scope','Song','Track','$routeParams','navigation', function($scope,Song,Track,$routeParams,navigation) {

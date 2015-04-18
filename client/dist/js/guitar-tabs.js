@@ -117,7 +117,6 @@ angular.module("songs/song-detail.tpl.html", []).run(["$templateCache", function
     "			<img ng-src=\"{{track.album.images[1].url}}\" height=\"{{track.album.images[1].height}}\" width=\"{{track.album.images[1].width}}\" alt=\"{{song.title}}\">\n" +
     "		</div>\n" +
     "		<div class=\"col-lg-4 col-md-4\">\n" +
-    "			<!-- <p class=\"lead\">{{movie.Plot}}</p> -->\n" +
     "			<div class=\"well\" ng-if=\"track\">\n" +
     "				<ul class=\"list-unstyled\">\n" +
     "					<li><strong>Album:</strong> {{track.album.title}}</li>\n" +
@@ -164,6 +163,7 @@ angular.module("songs/song-form.tpl.html", []).run(["$templateCache", function($
 angular.module("songs/song-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("songs/song-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<input type=\"text\" class=\"form-control input-lg\" ng-model=\"filter\" placeholder=\"Search\">\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"song in songs\" ng-click=\"navigation.go('/songs/' + song.id)\">\n" +
@@ -966,12 +966,13 @@ songService.factory('Song', ['$http', '$q', function ($http, $q) {
 			limit: 10,
 			offset: 0,
 			fields: 'id,title,tags,artist,album',
-			expand:0
+			expand:0,
+			filter: ''
 		};
 
 		options = angular.extend(defaults,options);
 
-		$http.get('/index.cfm/songs?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields).then(cb,errcb);
+		$http.get('/index.cfm/songs?limit='+options.limit+'&offset='+options.offset+'&expand='+options.expand+'&fields='+options.fields+'&filter='+options.filter).then(cb,errcb);
 	};
 
 	Song.search = function(term) {
@@ -1033,6 +1034,8 @@ songs = angular.module('songs', [
 songs.controller('SongListCtrl', ['$scope','Song','navigation',function($scope,Song,navigation) {
 	$scope.navigation = navigation;
 	$scope.pagination = {};
+	$scope.filter = "";
+
 	Song.getItems({limit: 10},function(response) {
 		$scope.songs = response.data.items;
 		$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
@@ -1046,6 +1049,15 @@ songs.controller('SongListCtrl', ['$scope','Song','navigation',function($scope,S
 			$scope.songs = response.data.items;
 		});
 	};
+
+	/* Search */
+	$scope.$watch(function(scope) { return scope.filter },function(filterValue) {
+		Song.getItems({limit: 10,filter: $scope.filter},function(response) {
+			$scope.songs = response.data.items;
+			$scope.pagination.count = Math.ceil(response.data.total / response.data.limit);
+			$scope.pagination.current = parseInt(response.data.offset,8) + 1;
+		});
+	});
 }]);
 
 songs.controller('SongDetailCtrl', ['$scope','Song','Track','$routeParams','navigation', function($scope,Song,Track,$routeParams,navigation) {

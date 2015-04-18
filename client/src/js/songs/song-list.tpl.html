@@ -1,4 +1,5 @@
 <div class="container">
+	<input type="text" class="form-control input-lg" ng-model="filter" placeholder="Search">
 	<pagination num-pages="pagination.count" current-page="pagination.current" on-select-page="changePage(page)"></pagination>
 	<div class="list-group">
 		<div class="list-group-item" ng-repeat="song in songs" ng-click="navigation.go('/songs/' + song.id)">

@@ -12,8 +12,14 @@ component extends="handlers.base"
 	public any function index(event,rc,prc) {
 
 		event.paramValue("rc.fields","id,title,tags");
-		
-		var songs = songsService.getAll();
+		event.paramValue("filter","");
+
+		if (len(rc.filter)) {
+			var songs = songsService.search(rc.filter);
+		}
+		else {
+			var songs = songsService.getAll();
+		}
 
 		rc.response = getCollection(songs,rc.fields,rc.offset,rc.limit);
 
@@ -185,6 +191,10 @@ component extends="handlers.base"
 
 			if (listFindNoCase(arguments.fields,"tags")) {
 				resource["tags"] = listToArray(song.getTagsAsList());
+			}
+
+			if (listFindNoCase(arguments.fields,"spotifyId")) {
+				resource["spotifyId"] = song.SpotifyId();
 			}
 
 			if (listFindNoCase(arguments.fields,"artist") && song.Artist) {

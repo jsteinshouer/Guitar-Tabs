@@ -116,7 +116,6 @@ angular.module("songs/song-detail.tpl.html", []).run(["$templateCache", function
     "			<img ng-src=\"{{track.album.images[1].url}}\" height=\"{{track.album.images[1].height}}\" width=\"{{track.album.images[1].width}}\" alt=\"{{song.title}}\">\n" +
     "		</div>\n" +
     "		<div class=\"col-lg-4 col-md-4\">\n" +
-    "			<!-- <p class=\"lead\">{{movie.Plot}}</p> -->\n" +
     "			<div class=\"well\" ng-if=\"track\">\n" +
     "				<ul class=\"list-unstyled\">\n" +
     "					<li><strong>Album:</strong> {{track.album.title}}</li>\n" +
@@ -163,6 +162,7 @@ angular.module("songs/song-form.tpl.html", []).run(["$templateCache", function($
 angular.module("songs/song-list.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("songs/song-list.tpl.html",
     "<div class=\"container\">\n" +
+    "	<input type=\"text\" class=\"form-control input-lg\" ng-model=\"filter\" placeholder=\"Search\">\n" +
     "	<pagination num-pages=\"pagination.count\" current-page=\"pagination.current\" on-select-page=\"changePage(page)\"></pagination>\n" +
     "	<div class=\"list-group\">\n" +
     "		<div class=\"list-group-item\" ng-repeat=\"song in songs\" ng-click=\"navigation.go('/songs/' + song.id)\">\n" +
