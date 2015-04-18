@@ -1,18 +1,32 @@
 <div style="margin: 40px">
-	<h1>{{song.title}} <small>{{song.artist.name}}</small></h1>
 	<div class="row">
-		<div class="col-lg-3 col-md-4 list-col">
+		<h1>{{song.title}} <small>{{song.artist.name}}</small></h1>
+	</div>
+	<div class="row">
+		<div class="col-lg-3 col-md-3">
 			<img ng-src="{{track.album.images[1].url}}" height="{{track.album.images[1].height}}" width="{{track.album.images[1].width}}" alt="{{song.title}}">
 		</div>
-		<div class="col-lg-6 col-md-6 list-col">
+		<div class="col-lg-4 col-md-4">
 			<!-- <p class="lead">{{movie.Plot}}</p> -->
-			<div class="well">
+			<div class="well" ng-if="track">
 				<ul class="list-unstyled">
 					<li><strong>Album:</strong> {{track.album.title}}</li>
 					<li><strong>Track #: </strong>{{track.track_number}}</li>
 					<li><strong>Duration: </strong>{{track.duration_ms | msToMinutes}}</li>
 				</ul>
 				<div><audio ng-src="{{track.preview}}" controls></audio></div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+			<div class="bs-sidebar" data-offset-top="-60" bs-affix>
+				<div style="width: 220px">
+					<!-- List group -->
+				<div class="panel panel-default">
+					<a class="btn btn-default btn-lg btn-block" href="#/songs/edit/{{song.id}}"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+				</div>
+				
+				<song-pods song-id="song.id" />
+				</div>
 			</div>
 		</div>
 	</div>
