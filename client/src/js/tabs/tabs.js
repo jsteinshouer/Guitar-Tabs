@@ -52,6 +52,16 @@ tabs.controller('TabDetailCtrl', ['$scope','Tab','$routeParams','navigation', fu
 
 }]);
 
+tabs.controller('TabFullscreenCtrl', ['$scope','Tab','$routeParams','navigation', function($scope,Tab,$routeParams,navigation) {
+
+	Tab.get($routeParams.id,function(response) {
+		$scope.tab = new Tab(response.data);
+		navigation.title = $scope.tab.title;
+		navigation.editUrl = "/tabs/edit/" + $scope.tab.id;
+	});
+
+}]);
+
 
 tabs.controller('TabEditCtrl', ['$scope','Tab','Song','$routeParams', '$alert', function($scope,Tab,Song,$routeParams,$alert) {
 	

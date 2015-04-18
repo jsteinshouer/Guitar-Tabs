@@ -136,3 +136,7 @@ a.brand {
  .pagination {
  	margin-bottom: 30px;
  }
+
+ .exit-fullscreen {
+ 	float:right;
+ }

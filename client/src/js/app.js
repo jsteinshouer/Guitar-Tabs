@@ -48,6 +48,7 @@ app.config(['$routeProvider', function($routeProvider) {
 		when('/songs/edit/:id', {templateUrl: 'songs/song-form.tpl.html', controller:'SongEditCtrl'}).
 		when('/videos/edit/:id', {templateUrl: 'videos/video-form.tpl.html', controller:'VideoEditCtrl'}).
 		when('/tabs/:id', {templateUrl: 'tabs/tab-detail.tpl.html', controller:'TabDetailCtrl'}).
+		when('/tabs/:id/fullscreen', {templateUrl: 'tabs/tab-fullscreen.tpl.html', controller:'TabFullscreenCtrl'}).
 		when('/videos/:id', {templateUrl: 'videos/video-detail.tpl.html', controller:'VideoDetailCtrl'}).
 		when('/tags/:id', {templateUrl: 'tags/tag-detail.tpl.html', controller:'TagDetailCtrl'}).
 		when('/songs/:songId/tabs/new', {templateUrl: 'tabs/tab-form.tpl.html', controller:'TabEditCtrl'}).

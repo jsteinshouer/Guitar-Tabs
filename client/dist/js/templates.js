@@ -1,4 +1,4 @@
-angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-artist-search.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
+angular.module('templates-main', ['artists/artist-detail.tpl.html', 'artists/artist-list.tpl.html', 'common/templates/login-form.tpl.html', 'common/templates/main-menu.tpl.html', 'common/templates/pods.tpl.html', 'common/templates/tag-list.tpl.html', 'songs/song-detail.tpl.html', 'songs/song-form.tpl.html', 'songs/song-list.tpl.html', 'spotify/spotify-artist-search.tpl.html', 'spotify/spotify-search.tpl.html', 'tabs/tab-detail.tpl.html', 'tabs/tab-form.tpl.html', 'tabs/tab-fullscreen.tpl.html', 'tabs/tab-list.tpl.html', 'tags/tag-detail.tpl.html', 'tags/tag-list.tpl.html', 'videos/video-detail.tpl.html', 'videos/video-form.tpl.html', 'videos/video-list.tpl.html', 'videos/video-modal.tpl.html']);
 
 angular.module("artists/artist-detail.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("artists/artist-detail.tpl.html",
@@ -283,7 +283,8 @@ angular.module("tabs/tab-detail.tpl.html", []).run(["$templateCache", function($
     "					<!-- List group -->\n" +
     "				<div class=\"panel panel-default\">\n" +
     "					<a class=\"btn btn-default btn-lg btn-block\" href=\"#/tabs/edit/{{tab.id}}\"><span class=\"glyphicon glyphicon-edit\"></span> Edit</a>\n" +
-    "						<!-- <button type=\"button\" class=\"btn btn-primary btn-block\"><span class=\"glyphicon glyphicon-edit\"></span> Edit</button> -->\n" +
+    "					<a class=\"btn btn-default btn-lg btn-block\" href=\"#/tabs/{{tab.id}}/fullscreen\"><span class=\"glyphicon glyphicon-resize-full\"></span> Fullscreen</a>\n" +
+    "					\n" +
     "				</div>\n" +
     "				\n" +
     "				<!-- <div ng-include=\"'tabs/tab-pod.tpl.html'\"></div> -->\n" +
@@ -331,6 +332,20 @@ angular.module("tabs/tab-form.tpl.html", []).run(["$templateCache", function($te
     "  <button type=\"submit\" class=\"btn btn-primary\">Save</button>\n" +
     "  <span style=\"margin-left: 5px\" id=\"message\"></span>\n" +
     "</form>\n" +
+    "</div>");
+}]);
+
+angular.module("tabs/tab-fullscreen.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("tabs/tab-fullscreen.tpl.html",
+    "<div class=\"container-fluid\">\n" +
+    "	<div class=\"row-fluid\">\n" +
+    "		<div class=\"col-lg-12 col-md-12 col-sm-12 col-xs-12\">\n" +
+    "			<pre class=\"tab-fullscreen\">\n" +
+    "				<a class=\"btn btn-default exit-fullscreen\" href=\"#/tabs/{{tab.id}}\"><span class=\"glyphicon glyphicon-resize-small\"></span></a>\n" +
+    "				<div>{{tab.content}}</div>\n" +
+    "			</pre>\n" +
+    "		</div>\n" +
+    "	</div>\n" +
     "</div>");
 }]);
 
