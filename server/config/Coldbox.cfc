@@ -78,7 +78,7 @@ function configure(){
 	settings = {
 		baseUrl = "/",
 		useSSL = true,
-		tokenSecret = "34rFChP5$sWw@70Lk^%kJi"
+		tokenSecret = "changeme"
 	};
 	
 	// environment settings, create a detectEnvironment() method to detect it yourself.
