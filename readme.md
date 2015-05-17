@@ -5,7 +5,7 @@ This is an application for storing and organizing guitar tabluature and a tool t
 
 ### Stack
 
-* Server: [Lucee](http://lucee.org/) + [H2 Embedded Database](http://www.h2database.com/html/main.html)
+* Server: [Lucee](http://lucee.org/) + [Coldbox](https://www.ortussolutions.com/products/coldbox) + [H2 Embedded Database](http://www.h2database.com/html/main.html)
 * Client [AngularJS](http://www.angularjs.org/)
 * CSS based on [Twitter's bootstrap](http://getbootstrap.com/)
 
