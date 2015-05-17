@@ -20,9 +20,7 @@ angular.module('videos.modal', ['mgcrea.ngStrap'])
 
 			el.on("click", function(e) {
 				e.preventDefault();
-				modal.$promise.then(function() {
-					modal.show();
-				});
+				modal.$promise.then(modal.show);
 			});
 
 		}
