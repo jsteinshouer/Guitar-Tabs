@@ -34,3 +34,5 @@ On windows run build.bat. This will install the required npm and bower modules f
 ```
 build.bat
 ```
+
+Be sure to change the default tokenSecret setting in config/Coldbox.cfc.
