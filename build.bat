@@ -1,8 +1,5 @@
-cd ./client
-call npm install
-call bower install
-call grunt build
-
-cd ../server
+npm install
+bower install
+grunt build
 box install
 box recipe build.boxr

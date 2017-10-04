@@ -1,0 +1,23 @@
+{
+    "name":"guitar-tabs",
+    "version":"0.8.0",
+    "author":"Jason Steinshouer",
+    "slug":"guitar-tabs",
+    "private":true,
+    "engines":[
+        {
+            "type":"lucee",
+            "version":">=4.5.x"
+        }
+    ],
+    "defaultEngine":"",
+    "dependencies":{
+        "coldbox":"4.1.0"
+    },
+    "devDependencies":{
+        
+    },
+    "installPaths":{
+        "coldbox":"coldbox"
+    }
+}

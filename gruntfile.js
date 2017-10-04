@@ -31,44 +31,44 @@ module.exports = function (grunt) {
 
 	// Project configuration.
 	grunt.initConfig({
-	distdir: 'dist',
+	distdir: 'assets',
 	pkg: grunt.file.readJSON('package.json'),
 	banner:
 	'/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>*/\n',
 	src: {
-		js: ['src/**/*.js'],
-		specs: ['test/**/*.spec.js'],
-		scenarios: ['test/**/*.scenario.js'],
-		html: ['src/index.html'],
-		tpl: ['src/js/**/*.tpl.html'],
+		js: ['client/src/**/*.js'],
+		specs: ['client/test/**/*.spec.js'],
+		scenarios: ['client/test/**/*.scenario.js'],
+		html: ['client/src/index.html'],
+		tpl: ['client/src/js/**/*.tpl.html'],
 		css: [
-			'src/css/bootstrap/bootstrap.less',
-			'lib/ng-tags-input/ng-tags-input.css',
-			'lib/ng-tags-input/ng-tags-input.bootstrap.css',
-			'lib/bootstrap-additions/dist/bootstrap-additions.css',
-			'lib/angular-motion/dist/angular-motion.css',
-			'src/css/default.css'
+			'client/src/css/bootstrap/bootstrap.less',
+			'client/lib/ng-tags-input/ng-tags-input.css',
+			'client/lib/ng-tags-input/ng-tags-input.bootstrap.css',
+			'client/lib/bootstrap-additions/dist/bootstrap-additions.css',
+			'client/lib/angular-motion/dist/angular-motion.css',
+			'client/src/css/default.css'
 		], // recess:build doesn't accept ** in its file patterns
-		lessWatch: ['src/css/**/*.less']
+		lessWatch: ['client/src/css/**/*.less']
 	},
 	clean: ['<%= distdir %>'],
 	copy: {
 		main: {
 			files: [
-				{ dest: '<%= distdir %>/fonts', src : '**', expand: true, cwd: 'lib/bootstrap/fonts' }
-				,{ dest: '<%= distdir %>/js', src : 'jquery.min.js', expand: true, cwd: 'lib/jquery/dist' }
+				{ dest: '<%= distdir %>/fonts', src : '**', expand: true, cwd: 'client/lib/bootstrap/fonts' }
+				,{ dest: '<%= distdir %>/js', src : 'jquery.min.js', expand: true, cwd: 'client/lib/jquery/dist' }
 				//,{ dest: '<%= distdir %>', src : '*', expand: true, cwd: 'src', filter: 'isFile' }
 			]
 		}
 	},
 	karma: {
-		unit: { options: karmaConfig('test/config/unit.js') },
-		watch: { options: karmaConfig('test/config/unit.js', { singleRun:false, autoWatch: true}) }
+		unit: { options: karmaConfig('client/test/config/unit.js') },
+		watch: { options: karmaConfig('client/test/config/unit.js', { singleRun:false, autoWatch: true}) }
 	},
 	html2js: {
 		main: {
 			options: {
-				base: 'src/js'
+				base: 'client/src/js'
 			},
 				src: ['<%= src.tpl %>'],
 			dest: '<%= distdir %>/js/templates.js'
@@ -84,17 +84,17 @@ module.exports = function (grunt) {
 		},
 		angular: {
 			src:[
-				'lib/angular/angular.js', 
-				'lib/angular-route/angular-route.js', 
-				'lib/angular-animate/angular-animate.js', 
-				'lib/angular-strap/dist/angular-strap.js',
-				'lib/angular-strap/dist/angular-strap.tpl.js',
-				'lib/ng-tags-input/ng-tags-input.js'
+				'client/lib/angular/angular.js', 
+				'client/lib/angular-route/angular-route.js', 
+				'client/lib/angular-animate/angular-animate.js', 
+				'client/lib/angular-strap/dist/angular-strap.js',
+				'client/lib/angular-strap/dist/angular-strap.tpl.js',
+				'client/lib/ng-tags-input/ng-tags-input.js'
 			],
 			dest: '<%= distdir %>/js/angular.js'
 		},
       	index: {
-			src: ['src/index.html'],
+			src: ['client/src/index.html'],
 			dest: '<%= distdir %>/index.html',
 			options: {
 				process: true
@@ -146,7 +146,7 @@ module.exports = function (grunt) {
 		}
 	},
 	jshint:{
-		files:['gruntFile.js', 'src/**/*.js', '<%= src.specs %>', '<%= src.scenarios %>'],
+		files:['gruntFile.js', 'client/src/**/*.js', '<%= src.specs %>', '<%= src.scenarios %>'],
 		options:{
 		curly:true,
 		eqeqeq:true,

@@ -77,7 +77,7 @@ function configure(){
 
 	settings = {
 		baseUrl = "/",
-		useSSL = true,
+		useSSL = false,
 		tokenSecret = "changeme"
 	};
 	
@@ -86,7 +86,7 @@ function configure(){
 	// the value of the environment is a list of regex patterns to match the cgi.http_host.
 	environments = {
 		//development = "^cf8.,^railo."
-		development = ".dev"
+		development = "localhost,127\.0\.0\.1"
 	};
 	
 	// Module Directives
